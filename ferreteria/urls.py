@@ -3,5 +3,6 @@ from ferreteria.views import *
 
 
 urlpatterns = [
-    path('', home, name='home')
+    path('', home, name='home'),
+    path('lista_sectores', listar_sectores, name='sector_list'),
 ]

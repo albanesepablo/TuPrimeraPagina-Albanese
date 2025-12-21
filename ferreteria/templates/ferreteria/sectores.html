@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Sectores</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .contenedor {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .nro {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Sectores</h1>
+
+        {% if sectores %}
+            <ol>
+                {% for sector in sectores %}
+                    <li>
+                        <span class="nro">Sector {{ sector.nro_sector }}:</span>
+                        {{ sector.nombre }}
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>No hay sectores disponibles.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
