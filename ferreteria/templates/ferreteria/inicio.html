@@ -1,6 +1,15 @@
-{% extends "ferreteria/index.html" %}
+{% extends 'index.html' %}
 
-{% block contenido %}
-<h2>Página de inicio</h2>
-<p>Bienvenido a la ferretería.</p>
+{% block content %}
+<div class="mt-5">
+    <div class="text-center">
+        <h2>Panel Principal</h2>
+        <p>Seleccione una opción para administrar la ferretería.</p>
+        <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+            <a href="{% url 'form_producto' %}" class="btn btn-primary btn-lg btn-rounded">Productos</a>
+            <a href="{% url 'form_categoria' %}" class="btn btn-success btn-lg btn-rounded">Categorías</a>
+            <a href="{% url 'form_proveedor' %}" class="btn btn-warning btn-lg btn-rounded text-white">Proveedores</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
