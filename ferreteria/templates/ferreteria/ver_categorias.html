@@ -1,0 +1,19 @@
+{% extends 'ferreteria/index.html' %}
+{% block title %}Categorías{% endblock %}
+{% block content %}
+<h2 class="text-center my-4">Lista de Categorías</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for categoria in categorias %}
+        <tr>
+            <td>{{ categoria.nombre }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

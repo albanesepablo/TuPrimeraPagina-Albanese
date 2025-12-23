@@ -1,0 +1,14 @@
+{% extends 'ferreteria/index.html' %}
+{% block title %}Ferretería El Tornillo - Login{% endblock %}
+
+{% block content %}
+<div class="col-md-4 mx-auto">
+    <h3 class="text-center mb-4">Ingreso de Empleados</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input class="form-control mb-3" name="username" placeholder="Usuario">
+        <input type="password" class="form-control mb-3" name="password" placeholder="Contraseña">
+        <button class="btn btn-danger w-100">Ingresar</button>
+    </form>
+</div>
+{% endblock %}
