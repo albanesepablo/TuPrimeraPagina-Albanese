@@ -1,14 +1,32 @@
-{% extends 'ferreteria/index.html' %}
-{% block title %}Ferretería El Tornillo - Login{% endblock %}
+{% extends "ferreteria/index.html" %}
+
+{% block title %}Ingresar - Ferretería El Tornillo{% endblock %}
 
 {% block content %}
-<div class="col-md-4 mx-auto">
-    <h3 class="text-center mb-4">Ingreso de Empleados</h3>
-    <form method="post">
-        {% csrf_token %}
-        <input class="form-control mb-3" name="username" placeholder="Usuario">
-        <input type="password" class="form-control mb-3" name="password" placeholder="Contraseña">
-        <button class="btn btn-danger w-100">Ingresar</button>
-    </form>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Iniciar Sesión</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                </form>
+                {% if form.errors %}
+                <div class="alert alert-danger mt-3">
+                    Usuario o contraseña incorrectos
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
