@@ -1,8 +1,10 @@
 from django.urls import path
-from ferreteria.views import *
-
+from . import views
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('lista_sectores', listar_sectores, name='listar_sectores'),
+    path('', views.inicio, name='inicio'),
+    path('buscar-producto/', views.buscar_producto, name='buscar_producto'),
+    path('crear-producto/', views.crear_producto, name='crear_producto'),
+    path('crear-categoria/', views.crear_categoria, name='crear_categoria'),
+    path('crear-proveedor/', views.crear_proveedor, name='crear_proveedor'),
 ]

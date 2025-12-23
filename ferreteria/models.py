@@ -1,11 +1,26 @@
 from django.db import models
 
-class Sector(models.Model):
+class Categoria(models.Model):
     nombre = models.CharField(max_length=50)
-    nro_sector = models.IntegerField(unique=True)
-    nro_empleados = models.IntegerField(null=True)
-    fecha_de_creacion = models.DateField(auto_now_add=True)
-    email_sector = models.EmailField()
 
     def __str__(self):
-        return f'Nombre: {self.nombre} / Nro de sector: {self.nro_sector}'
+        return self.nombre
+
+
+class Proveedor(models.Model):
+    nombre = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=20)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.nombre
+
+
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100)
+    precio = models.FloatField()
+    categoria = models.CharField(max_length=50)
+    proveedor = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
