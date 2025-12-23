@@ -1,40 +1,24 @@
 {% extends 'ferreteria/index.html' %}
-{% block title %}Buscar Producto{% endblock %}
-{% block content %}
-<div class="row justify-content-center my-5">
-    <div class="col-md-8">
-        <h2 class="mb-4 text-center">Buscar Producto</h2>
-        <form method="GET" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Nombre del producto...">
-                <button class="btn btn-custom">Buscar</button>
-            </div>
-        </form>
 
-        {% if productos %}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Categoria</th>
-                    <th>Proveedor</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for producto in productos %}
-                <tr>
-                    <td>{{ producto.nombre }}</td>
-                    <td>{{ producto.precio }}</td>
-                    <td>{{ producto.categoria }}</td>
-                    <td>{{ producto.proveedor }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p class="text-center">No se encontraron productos.</p>
-        {% endif %}
-    </div>
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">Buscar Producto</h2>
+    <form method="get" class="mb-4">
+        <input type="text" name="q" class="form-control mb-2" placeholder="Nombre del producto" value="{{ request.GET.q }}">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    {% if productos %}
+        <h5>Resultados:</h5>
+        <ul class="list-group">
+            {% for producto in productos %}
+            <li class="list-group-item">
+                {{ producto.nombre }} - ${{ producto.precio }} ({{ producto.categoria.nombre }})
+            </li>
+            {% endfor %}
+        </ul>
+    {% elif request.GET.q %}
+        <p>No se encontraron productos con "{{ request.GET.q }}".</p>
+    {% endif %}
 </div>
 {% endblock %}

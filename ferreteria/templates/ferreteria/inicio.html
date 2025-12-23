@@ -1,5 +1,4 @@
 {% extends 'ferreteria/index.html' %}
-{% block title %}Ferretería El Tornillo - Home{% endblock %}
 
 {% block content %}
 <div class="text-center">
@@ -7,18 +6,9 @@
     <p class="lead">Todo en herramientas, materiales y soluciones</p>
 
     <div class="d-grid gap-3 col-6 mx-auto mt-5">
-    <a href="{% url 'ver_productos' %}" class="btn btn-primary btn-lg">
-        📦 Ver productos
-    </a>
-
-    <a href="{% url 'buscar_producto' %}" class="btn btn-primary btn-lg">
-        🔍 Buscar producto
-    </a>
-
-    <a href="{% url 'acerca' %}" class="btn btn-primary btn-lg">
-        ℹ️ Acerca de nosotros
-    </a>
-</div>
-
+        <a href="{% url 'ver_productos' %}" class="btn btn-primary btn-lg">📦 Ver productos</a>
+        <a href="{% url 'buscar_producto' %}" class="btn btn-primary btn-lg">🔍 Buscar producto</a>
+        <a href="{% url 'acerca' %}" class="btn btn-primary btn-lg">ℹ️ Acerca de nosotros</a>
+    </div>
 </div>
 {% endblock %}
