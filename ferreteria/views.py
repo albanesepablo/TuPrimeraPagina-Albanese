@@ -4,15 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from .models import Producto, Proveedor, Categoria
 from django.contrib.auth.forms import AuthenticationForm
 
-# Página principal (base/navbar)
 def index(request):
     return render(request, 'ferreteria/index.html')
 
-# Inicio para todos
 def inicio(request):
     return render(request, 'ferreteria/inicio.html')
 
-# Login
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -24,12 +21,10 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'ferreteria/login.html', {'form': form})
 
-# Logout
 def logout_view(request):
     logout(request)
     return redirect('inicio')
 
-# Formulario de productos (solo empleados)
 @login_required
 def form_producto(request):
     categorias = Categoria.objects.all()
@@ -45,32 +40,30 @@ def form_producto(request):
         return redirect('inicio')
     return render(request, 'ferreteria/form_producto.html', {'categorias': categorias, 'proveedores': proveedores})
 
-# Formulario de categorías (solo empleados)
 @login_required
 def form_categoria(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
-        Categoria.objects.create(nombre=nombre)
-        return redirect('inicio')
-    return render(request, 'ferreteria/form_categoria.html')
+        if nombre:
+            Categoria.objects.create(nombre=nombre)
+    categorias = Categoria.objects.all()
+    return render(request, 'ferreteria/form_categoria.html', {'categorias': categorias})
 
-# Formulario de proveedores (solo empleados)
 @login_required
 def form_proveedor(request):
+    proveedores = Proveedor.objects.all()
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         telefono = request.POST.get('telefono')
         email = request.POST.get('email')
         Proveedor.objects.create(nombre=nombre, telefono=telefono, email=email)
-        return redirect('inicio')
-    return render(request, 'ferreteria/form_proveedor.html')
+        return redirect('form_proveedor')
+    return render(request, 'ferreteria/form_proveedor.html', {'proveedores': proveedores})
 
-# Ver productos
 def ver_productos(request):
     productos = Producto.objects.all()
     return render(request, 'ferreteria/ver_productos.html', {'productos': productos})
 
-# Buscar productos
 def buscar_producto(request):
     productos = []
     query = request.GET.get('q')
@@ -78,16 +71,14 @@ def buscar_producto(request):
         productos = Producto.objects.filter(nombre__icontains=query)
     return render(request, 'ferreteria/buscar_producto.html', {'productos': productos})
 
-# Ver proveedores
 def ver_proveedores(request):
     proveedores = Proveedor.objects.all()
     return render(request, 'ferreteria/ver_proveedores.html', {'proveedores': proveedores})
 
-# Ver categorías
 def ver_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'ferreteria/ver_categorias.html', {'categorias': categorias})
 
-# Acerca de nosotros
 def acerca(request):
     return render(request, 'ferreteria/acerca.html')
+
