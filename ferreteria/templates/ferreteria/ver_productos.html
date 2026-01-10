@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container my-5">
     <h2 class="mb-4">Productos disponibles</h2>
+
     {% if productos %}
     <table class="table table-striped">
         <thead>
@@ -10,7 +11,9 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Categoría</th>
-                <th>Proveedor</th>
+                {% if user.is_authenticated %}
+                    <th>Proveedor</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -19,13 +22,15 @@
                 <td>{{ producto.nombre }}</td>
                 <td>${{ producto.precio }}</td>
                 <td>{{ producto.categoria.nombre }}</td>
-                <td>{{ producto.proveedor.nombre }}</td>
+                {% if user.is_authenticated %}
+                    <td>{{ producto.proveedor.nombre }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
     {% else %}
-    <p>No hay productos cargados aún.</p>
+        <p>No hay productos cargados aún.</p>
     {% endif %}
 </div>
 {% endblock %}
