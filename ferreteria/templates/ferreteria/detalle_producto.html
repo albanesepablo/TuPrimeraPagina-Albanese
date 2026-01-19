@@ -31,7 +31,12 @@
                     <input type="text" class="form-control" value="{{ producto.proveedor }}" disabled>
                 </div>
                 {% endif %}
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Fecha de alta</label>
+                    <input type="text" class="form-control" value="{{ producto.fecha_alta|date:'d/m/Y H:i' }}" disabled>
             </div>
+
 
             <div class="card-footer text-end">
                 <a href="{% url 'ver_productos' %}" class="btn btn-secondary">

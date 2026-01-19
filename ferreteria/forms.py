@@ -22,7 +22,6 @@ class ProductoForm(forms.ModelForm):
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
 
-        # Querysets explícitos (buena práctica)
         self.fields["categoria"].queryset = Categoria.objects.all()
 
         if not user or not user.is_authenticated:
@@ -30,21 +29,6 @@ class ProductoForm(forms.ModelForm):
         else:
             self.fields["proveedor"].queryset = Proveedor.objects.all()
 
-
-class ProductoUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Producto
-        fields = [
-            "precio",
-            "categoria",
-            "proveedor",
-        ]
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
-            'proveedor': forms.TextInput(attrs={'class': 'form-control'}),
-#            'fecha_de_creacion': forms.DateInput(attrs={'class': 'form-control'})
-        }
 
 class CategoriaForm(forms.ModelForm):
     class Meta:

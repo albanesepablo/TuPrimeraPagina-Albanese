@@ -21,6 +21,7 @@ class Producto(models.Model):
     precio = models.FloatField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    fecha_alta = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.nombre

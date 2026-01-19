@@ -38,7 +38,7 @@ def form_producto(request):
         form = ProductoForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('inicio')
+            return redirect('ver_productos')
     else:
         form = ProductoForm(user=request.user)
 
@@ -147,3 +147,10 @@ def editar_producto(request, pk):
             "producto": producto
         }
     )
+
+
+@login_required
+def eliminar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    producto.delete()
+    return redirect("ver_productos")
