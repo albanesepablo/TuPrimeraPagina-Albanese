@@ -1,0 +1,45 @@
+{% extends "ferreteria/index.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Detalle del Producto</h4>
+            </div>
+
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombre</label>
+                    <input type="text" class="form-control" value="{{ producto.nombre }}" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Precio</label>
+                    <input type="text" class="form-control" value="${{ producto.precio }}" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Categoría</label>
+                    <input type="text" class="form-control" value="{{ producto.categoria }}" disabled>
+                </div>
+
+                {% if producto.proveedor %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Proveedor</label>
+                    <input type="text" class="form-control" value="{{ producto.proveedor }}" disabled>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="card-footer text-end">
+                <a href="{% url 'ver_productos' %}" class="btn btn-secondary">
+                    Volver
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

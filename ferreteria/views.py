@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
 from .models import Producto, Proveedor, Categoria
 from .forms import ProductoForm, CategoriaForm, ProveedorForm
 
@@ -114,3 +113,37 @@ def ver_categorias(request):
 
 def acerca(request):
     return render(request, 'ferreteria/acerca.html')
+
+def detalle_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    context = {
+        'producto': producto
+    }
+    return render(request, 'ferreteria/detalle_producto.html', context)
+
+def editar_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+
+    if request.method == "POST":
+        form = ProductoForm(
+            request.POST,
+            instance=producto,
+            user=request.user
+        )
+        if form.is_valid():
+            form.save()
+            return redirect("ver_productos")
+    else:
+        form = ProductoForm(
+            instance=producto,
+            user=request.user
+        )
+
+    return render(
+        request,
+        "ferreteria/editar_producto.html",
+        {
+            "form": form,
+            "producto": producto
+        }
+    )
