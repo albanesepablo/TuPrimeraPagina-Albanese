@@ -21,7 +21,6 @@
         <li class="nav-item ms-3"><a class="nav-link" href="{% url 'buscar_producto' %}">Buscar</a></li>
         <li class="nav-item ms-3"><a class="nav-link" href="{% url 'acerca' %}">Acerca</a></li>
         {% if user.is_authenticated %}
-          <li class="nav-item ms-3"><a class="nav-link" href="{% url 'form_producto' %}">Agregar Producto</a></li>
           <li class="nav-item ms-3"><a class="nav-link" href="{% url 'form_categoria' %}">Categorías</a></li>
           <li class="nav-item ms-3"><a class="nav-link" href="{% url 'form_proveedor' %}">Proveedores</a></li>
         {% endif %}

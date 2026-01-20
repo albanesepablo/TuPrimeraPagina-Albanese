@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container my-5">
     <div class="row g-4">
+
         <!-- Card: Agregar Categoría -->
         <div class="col-md-6">
             <div class="card p-4 shadow">
@@ -11,10 +12,18 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre de la Categoría</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="nombre"
+                            name="nombre"
+                            required
+                        >
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-secondary">Guardar Categoría</button>
+                        <button type="submit" class="btn btn-secondary">
+                            Guardar Categoría
+                        </button>
                     </div>
                 </form>
             </div>
@@ -24,26 +33,41 @@
         <div class="col-md-6">
             <div class="card p-4 shadow">
                 <h2 class="mb-4 text-center">Categorías Existentes</h2>
+
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for cat in categorias %}
                         <tr>
                             <td>{{ cat.nombre }}</td>
+                            <td class="text-center">
+                                <a
+                                    href="{% url 'eliminar_categoria' cat.id %}"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="return confirm('¿Seguro que querés eliminar esta categoría?');"
+                                >
+                                    Eliminar
+                                </a>
+                            </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td class="text-center">No hay categorías aún.</td>
+                            <td colspan="2" class="text-center">
+                                No hay categorías aún.
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+
             </div>
         </div>
+
     </div>
 </div>
 {% endblock %}

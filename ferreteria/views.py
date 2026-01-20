@@ -121,6 +121,7 @@ def detalle_producto(request, pk):
     }
     return render(request, 'ferreteria/detalle_producto.html', context)
 
+@login_required
 def editar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
 
@@ -154,3 +155,34 @@ def eliminar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     producto.delete()
     return redirect("ver_productos")
+
+
+@login_required
+def eliminar_categoria(request, pk):
+    categoria = get_object_or_404(Categoria, pk=pk)
+    categoria.delete()
+    return redirect("form_categoria")
+
+
+@login_required
+def editar_proveedor(request, pk):
+    proveedor = get_object_or_404(Proveedor, pk=pk)
+
+    if request.method == "POST":
+        form = ProveedorForm(request.POST, instance=proveedor)
+        if form.is_valid():
+            form.save()
+            return redirect('form_proveedor')
+    else:
+        form = ProveedorForm(instance=proveedor)
+
+    return render(request, 'ferreteria/editar_proveedor.html', {
+        'form': form
+    })
+
+
+@login_required
+def eliminar_proveedor(request, pk):
+    proveedor = get_object_or_404(Proveedor, pk=pk)
+    proveedor.delete()
+    return redirect("form_proveedor")
