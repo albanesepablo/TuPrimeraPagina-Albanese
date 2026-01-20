@@ -24,3 +24,28 @@ class ProfileChangeForm(UserChangeForm):
             "last_name": forms.TextInput(attrs={"class": "form-control"}),
             "password": forms.PasswordInput(attrs={"class": "form-control"})
         }
+
+class ProfileChangeForm(forms.ModelForm):
+    fecha_nacimiento = forms.DateField(
+        required=False,
+        widget=forms.DateInput(
+            attrs={
+                "type": "date",
+                "class": "form-control form-control-sm"
+            }
+        )
+    )
+
+    class Meta:
+        model = Profile
+        fields = (
+            "pais",
+            "direccion",
+            "fecha_nacimiento",
+            "avatar",
+        )
+        widgets = {
+            "pais": forms.TextInput(attrs={"class": "form-control form-control-sm"}),
+            "direccion": forms.TextInput(attrs={"class": "form-control form-control-sm"}),
+            "avatar": forms.FileInput(attrs={"class": "form-control form-control-sm"}),
+        }

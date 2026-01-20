@@ -1,0 +1,114 @@
+{% extends 'ferreteria/index.html' %}
+
+{% block content %}
+<div class="container my-3">
+  <div class="card shadow-sm">
+
+    <div class="card-header bg-primary text-white text-center py-2">
+      <h5 class="mb-0">Editar perfil</h5>
+    </div>
+
+    <div class="card-body py-3">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row g-3">
+
+          <!-- ===== DATOS ===== -->
+          <div class="col-md-8">
+
+            {% for field in form %}
+              {% if field.name not in "avatar password password1 password2" %}
+
+                <div>
+                  <label class="form-label small fw-semibold">
+                    {{ field.label }}
+                  </label>
+
+                  {% if field.name == "fecha_nacimiento" %}
+                    <input
+                      type="date"
+                      name="{{ field.name }}"
+                      value="{% if field.value %}{{ field.value|date:'Y-m-d' }}{% endif %}"
+                      class="form-control form-control-sm"
+                    >
+                  {% else %}
+                    {{ field }}
+                  {% endif %}
+
+                  {% if field.errors %}
+                    <div class="text-danger small">
+                      {{ field.errors }}
+                    </div>
+                  {% endif %}
+                </div>
+
+              {% endif %}
+            {% endfor %}
+
+          </div>
+
+          <!-- ===== AVATAR ===== -->
+          <div class="col-md-4 text-center">
+
+            <label class="form-label small fw-semibold mb-2">
+              Imagen de perfil
+            </label>
+
+            {% if user.avatar and user.avatar.name != "default/default.png" %}
+              <div class="mb-2">
+                <img
+                  src="{{ user.avatar.url }}"
+                  alt="Avatar"
+                  class="img-thumbnail"
+                  style="max-width: 120px;"
+                >
+              </div>
+            {% else %}
+              <p class="text-muted small mb-2">
+                Sin imagen
+              </p>
+            {% endif %}
+
+            <input
+              type="file"
+              name="avatar"
+              accept="image/*"
+              class="form-control form-control-sm mb-1"
+            >
+
+            {% if user.avatar and user.avatar.name != "default/default.png" %}
+              <div class="form-check d-flex justify-content-center gap-2 mt-1">
+                <input
+                  type="checkbox"
+                  name="avatar-clear"
+                  id="avatar-clear"
+                  class="form-check-input"
+                >
+                <label for="avatar-clear" class="form-check-label small">
+                  Quitar imagen
+                </label>
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+
+        <div class="d-grid mt-3">
+          <button type="submit" class="btn btn-success btn-sm">
+            Guardar cambios
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card-footer text-center py-2">
+      <a href="{% url 'profile_detail' %}" class="small">
+        Volver al perfil
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
