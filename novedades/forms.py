@@ -8,7 +8,6 @@ class NovedadForm(forms.ModelForm):
             "titulo",
             "subtitulo",
             "imagen",
-            "nro_novedad",
             "contenido",
         ]
         widgets = {
@@ -19,10 +18,6 @@ class NovedadForm(forms.ModelForm):
             "subtitulo": forms.TextInput(attrs={
                 "class": "form-control",
                 "placeholder": "Subtítulo"
-            }),
-            "nro_novedad": forms.NumberInput(attrs={
-                "class": "form-control",
-                "placeholder": "Número"
             }),
             "contenido": forms.Textarea(attrs={
                 "class": "form-control",
