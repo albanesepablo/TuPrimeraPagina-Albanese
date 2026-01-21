@@ -1,0 +1,27 @@
+{% extends 'ferreteria/index.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ object.titulo }}</h2>
+    <p class="text-muted">{{ object.subtitulo }}</p>
+
+    {% if object.imagen %}
+        <img src="{{ object.imagen.url }}" class="img-fluid mb-3" alt="">
+    {% endif %}
+
+    <p>{{ object.contenido }}</p>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'novedad_editar' object.pk %}" class="btn btn-warning">
+            Editar
+        </a>
+        <a href="{% url 'novedad_borrar' object.pk %}" class="btn btn-danger">
+            Borrar
+        </a>
+    {% endif %}
+
+    <a href="{% url 'novedades_lista' %}" class="btn btn-secondary">
+        Volver
+    </a>
+</div>
+{% endblock %}

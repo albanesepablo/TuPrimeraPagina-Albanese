@@ -1,0 +1,27 @@
+{% extends 'ferreteria/index.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Novedades</h2>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'novedad_crear' %}" class="btn btn-primary mb-3">
+            Crear novedad
+        </a>
+    {% endif %}
+
+    {% if novedades %}
+        <div class="list-group">
+            {% for novedad in novedades %}
+                <a href="{% url 'novedad_detalle' novedad.pk %}"
+                   class="list-group-item list-group-item-action">
+                    <strong>{{ novedad.titulo }}</strong><br>
+                    <small class="text-muted">{{ novedad.subtitulo }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No hay novedades aún.</p>
+    {% endif %}
+</div>
+{% endblock %}

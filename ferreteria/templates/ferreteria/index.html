@@ -29,6 +29,13 @@
           <a class="nav-link" href="{% url 'ver_productos' %}">Productos</a>
         </li>
 
+        <!-- NUEVO: acceso a Novedades -->
+        <li class="nav-item ms-3">
+          <a class="nav-link" href="{% url 'novedades_lista' %}">
+            Novedades
+          </a>
+        </li>
+
         <li class="nav-item ms-3">
           <a class="nav-link" href="{% url 'buscar_producto' %}">Buscar</a>
         </li>
@@ -60,7 +67,6 @@
             </span>
           </li>
 
-          <!-- NUEVO: acceso al perfil (sin romper diseño) -->
           <li class="nav-item me-2">
             <a class="btn btn-outline-light btn-sm"
                href="{% url 'profile_detail' %}">
@@ -85,7 +91,6 @@
             </a>
           </li>
 
-          <!-- NUEVO: registro -->
           <li class="nav-item">
             <a class="btn btn-outline-light btn-sm"
                href="{% url 'register' %}">
@@ -98,10 +103,8 @@
   </div>
 </nav>
 
-
 <div class="container my-5">
     {% block content %}
-    <!-- Contenido específico de cada página -->
     {% endblock %}
 </div>
 

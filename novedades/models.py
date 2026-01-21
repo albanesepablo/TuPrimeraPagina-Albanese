@@ -5,7 +5,7 @@ class Novedad(models.Model):
     subtitulo = models.CharField(max_length=150)
     imagen = models.ImageField(upload_to='novedades/')
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    codigo = models.IntegerField(unique=True)
+    nro_novedad = models.IntegerField(unique=True)
     contenido = models.TextField()
 
     def __str__(self):
