@@ -1,26 +1,88 @@
 {% extends 'ferreteria/index.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-6">
-    <div class="card shadow">
-      <div class="card-header bg-primary text-white">
-        <h4>Perfil de usuario</h4>
-      </div>
-      <div class="card-body">
-        <p><strong>Usuario:</strong> {{ user.username }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
 
-        {% if user.profile.avatar %}
-          <p>
-            <img src="{{ user.profile.avatar.url }}" class="img-thumbnail" width="150">
-          </p>
-        {% endif %}
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center py-2">
+          <h5 class="mb-0">Perfil de usuario</h5>
+        </div>
 
-        <a href="{% url 'profile_change' %}" class="btn btn-warning">
-          Editar perfil
-        </a>
+        <div class="card-body">
+
+          <!-- AVATAR -->
+          <div class="text-center mb-3">
+            {% if user.avatar %}
+              <img
+                src="{{ user.avatar.url }}"
+                class="rounded-circle img-fluid"
+                style="max-width: 140px;"
+                alt="Avatar"
+              >
+            {% else %}
+              <img
+                src="/media/default/default.png"
+                class="rounded-circle img-fluid"
+                style="max-width: 140px;"
+                alt="Avatar por defecto"
+              >
+            {% endif %}
+          </div>
+
+          <!-- DATOS -->
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item">
+              <strong>Usuario:</strong> {{ user.username }}
+            </li>
+
+            <li class="list-group-item">
+              <strong>Nombre:</strong>
+              {{ user.first_name|default:"—" }}
+              {{ user.last_name|default:"" }}
+            </li>
+
+            <li class="list-group-item">
+              <strong>Email:</strong>
+              {{ user.email|default:"—" }}
+            </li>
+
+            <li class="list-group-item">
+              <strong>País:</strong>
+              {{ user.pais|default:"—" }}
+            </li>
+
+            <li class="list-group-item">
+              <strong>Dirección:</strong>
+              {{ user.direccion|default:"—" }}
+            </li>
+
+            <li class="list-group-item">
+              <strong>Fecha de nacimiento:</strong>
+              {% if user.fecha_de_nacimiento %}
+                {{ user.fecha_de_nacimiento|date:"d/m/Y" }}
+              {% else %}
+                —
+              {% endif %}
+            </li>
+
+            <li class="list-group-item">
+              <strong>Fecha de registro:</strong>
+              {{ user.fecha_de_registro|date:"d/m/Y" }}
+            </li>
+          </ul>
+
+          <!-- BOTÓN -->
+          <div class="text-center mt-3">
+            <a href="{% url 'profile_change' %}" class="btn btn-warning btn-sm px-4">
+              Editar perfil
+            </a>
+          </div>
+
+        </div>
       </div>
+
     </div>
   </div>
 </div>

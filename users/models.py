@@ -14,9 +14,9 @@ class Profile(AbstractUser):
         null=True,
         verbose_name="Avatar"
     )
-    pais = models.CharField(max_length=50)
+    pais = models.CharField(max_length=50, blank = True)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)
-    direccion = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=100, blank = True)
     fecha_de_registro = models.DateField(auto_now_add=True)
     
     class Meta:

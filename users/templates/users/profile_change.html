@@ -3,112 +3,91 @@
 {% block content %}
 <div class="container my-3">
   <div class="card shadow-sm">
-
-    <div class="card-header bg-primary text-white text-center py-2">
-      <h5 class="mb-0">Editar perfil</h5>
+    <div class="card-header bg-primary text-white py-2">
+      <h5 class="mb-0 text-center">Editar perfil</h5>
     </div>
 
-    <div class="card-body py-3">
+    <div class="card-body">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         <div class="row g-3">
 
-          <!-- ===== DATOS ===== -->
+          <!-- FORMULARIO -->
           <div class="col-md-8">
 
-            {% for field in form %}
-              {% if field.name not in "avatar password password1 password2" %}
+            <div class="mb-2">
+              <label class="form-label">Nombre</label>
+              {{ form.first_name }}
+            </div>
 
-                <div>
-                  <label class="form-label small fw-semibold">
-                    {{ field.label }}
-                  </label>
+            <div class="mb-2">
+              <label class="form-label">Apellido</label>
+              {{ form.last_name }}
+            </div>
 
-                  {% if field.name == "fecha_nacimiento" %}
-                    <input
-                      type="date"
-                      name="{{ field.name }}"
-                      value="{% if field.value %}{{ field.value|date:'Y-m-d' }}{% endif %}"
-                      class="form-control form-control-sm"
-                    >
-                  {% else %}
-                    {{ field }}
-                  {% endif %}
+            <div class="mb-2">
+              <label class="form-label">País</label>
+              {{ form.pais }}
+            </div>
 
-                  {% if field.errors %}
-                    <div class="text-danger small">
-                      {{ field.errors }}
-                    </div>
-                  {% endif %}
-                </div>
+            <div class="mb-2">
+              <label class="form-label">Dirección</label>
+              {{ form.direccion }}
+            </div>
 
-              {% endif %}
-            {% endfor %}
+            <div class="mb-2">
+              <label class="form-label">Fecha de nacimiento</label>
+              {{ form.fecha_de_nacimiento }}
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Cambiar avatar</label>
+              {{ form.avatar }}
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Nueva contraseña</label>
+              {{ form.password }}
+              <small class="text-muted">
+                Dejar vacío para mantener la contraseña actual
+              </small>
+            </div>
 
           </div>
 
-          <!-- ===== AVATAR ===== -->
+          <!-- AVATAR -->
           <div class="col-md-4 text-center">
+            <p class="fw-bold mb-2">Imagen de perfil</p>
 
-            <label class="form-label small fw-semibold mb-2">
-              Imagen de perfil
-            </label>
-
-            {% if user.avatar and user.avatar.name != "default/default.png" %}
-              <div class="mb-2">
-                <img
-                  src="{{ user.avatar.url }}"
-                  alt="Avatar"
-                  class="img-thumbnail"
-                  style="max-width: 120px;"
-                >
-              </div>
+            {% if user.avatar %}
+              <img
+                src="{{ user.avatar.url }}"
+                class="img-fluid rounded-circle mb-2"
+                style="max-width: 140px;"
+              >
             {% else %}
-              <p class="text-muted small mb-2">
-                Sin imagen
-              </p>
+              <img
+                src="/media/default.png"
+                class="img-fluid rounded-circle mb-2"
+                style="max-width: 140px;"
+              >
             {% endif %}
-
-            <input
-              type="file"
-              name="avatar"
-              accept="image/*"
-              class="form-control form-control-sm mb-1"
-            >
-
-            {% if user.avatar and user.avatar.name != "default/default.png" %}
-              <div class="form-check d-flex justify-content-center gap-2 mt-1">
-                <input
-                  type="checkbox"
-                  name="avatar-clear"
-                  id="avatar-clear"
-                  class="form-check-input"
-                >
-                <label for="avatar-clear" class="form-check-label small">
-                  Quitar imagen
-                </label>
-              </div>
-            {% endif %}
-
           </div>
+
         </div>
 
-        <div class="d-grid mt-3">
-          <button type="submit" class="btn btn-success btn-sm">
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success btn-sm px-4">
             Guardar cambios
           </button>
+          <a href="{% url 'profile_detail' %}" class="btn btn-secondary btn-sm px-4">
+            Cancelar
+          </a>
         </div>
 
       </form>
     </div>
-
-    <div class="card-footer text-center py-2">
-      <a href="{% url 'profile_detail' %}" class="small">
-        Volver al perfil
-      </a>
-    </div>
-
   </div>
 </div>
 {% endblock %}

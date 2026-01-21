@@ -22,11 +22,19 @@ def profile_detail(request):
 @login_required
 def profile_change(request):
     if request.method == "POST":
-        form = ProfileChangeForm(request.POST, request.FILES, instance=request.user)
+        form = ProfileChangeForm(
+            request.POST,
+            request.FILES,
+            instance=request.user
+        )
         if form.is_valid():
             form.save()
             return redirect("profile_detail")
     else:
         form = ProfileChangeForm(instance=request.user)
-    
-    return render(request, "users/profile_change.html", {"form": form})
+
+    return render(
+        request,
+        "users/profile_change.html",
+        {"form": form}
+    )
