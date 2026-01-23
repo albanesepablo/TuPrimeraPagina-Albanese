@@ -34,6 +34,7 @@ class ProfileCreateForm(UserCreationForm):
 class ProfileChangeForm(UserChangeForm):
     password = forms.CharField(
         label="Contraseña actual",
+        required=False,
         widget=forms.PasswordInput(attrs={"class": "form-control form-control-sm"}),
         help_text="Ingresá tu contraseña actual para confirmar los cambios."
     )

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from users.forms import *
+from django.contrib.auth import update_session_auth_hash
+
 
 
 def register(request):
@@ -28,7 +30,8 @@ def profile_change(request):
             instance=request.user
         )
         if form.is_valid():
-            form.save()
+            user = form.save()
+            update_session_auth_hash(request, user)
             return redirect("profile_detail")
     else:
         form = ProfileChangeForm(instance=request.user)
